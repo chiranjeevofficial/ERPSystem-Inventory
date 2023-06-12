@@ -1,14 +1,17 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 
-public class NewHomePage {
+public class NewHomePage implements ActionListener {
     static final int width = 1000, height = 630;
     JFrame frame;
     JPanel panel, leftPanel, rightPanel;
     JPanel leftTopPanel, leftBottomPanel, rightTopPanel, rightCenterPanel, rightBottomPanel;
     JPanel[] innerLeftBottomPanel, innerRightTopPanel, innerRightBottomPanel;
-    JButton[] leftBottomButton;
+    JButton[] leftBottomButton, rightTopButton;
 
     public NewHomePage() {
         initMainFrame();
@@ -19,6 +22,7 @@ public class NewHomePage {
     public void initMainFrame() {
         frame = new JFrame("New Home Page");
         frame.setLayout(new GridLayout(1,1));
+        frame.setResizable(false);
         frame.setVisible(true);
         frame.setSize(width + 16, height + 39);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,6 +115,7 @@ public class NewHomePage {
             innerRightTopPanel[i].setBackground(Util.getColor("9966CC"));
             rightTopPanel.add(innerRightTopPanel[i]);
         }
+        initRightTopPanelComponents();
     }
 
     public void innerRightBottomPanel() {
@@ -156,11 +161,43 @@ public class NewHomePage {
 
     public void initLeftBottomPanelComponents() {
         leftBottomButton = new JButton[8];
-        String[] buttonString = {"Purchase", "Sales", "Customer", "Invoice", "Stock", "Report", "Log Out"};
+        String[] buttonString = {"Purchase", "Sales", "Customer", "Invoice", "Demand", "Stock", "Report", "Log Out"};
         for (int i = 0 ; i < leftBottomButton.length ; i++) {
             leftBottomButton[i] = new JButton(buttonString[i]);
-            leftBottomPanel.add(leftBottomButton[i]);
+            leftBottomButton[i].addActionListener(this);
+            innerLeftBottomPanel[i].add(leftBottomButton[i]);
+        }
+        setDecorationOnButton(leftBottomButton);
+    }
+
+    public void initRightTopPanelComponents() {
+        rightTopButton = new JButton[4];
+        String[] buttonString = {"Add", "Update", "Delete", "View"};
+        for (int i = 0 ; i < rightTopButton.length ; i++) {
+            rightTopButton[i] = new JButton(buttonString[i]);
+            rightTopButton[i].addActionListener(this);
+            innerRightTopPanel[i].add(rightTopButton[i]);
+        }
+        setDecorationOnButton(rightTopButton);
+    }
+
+    public void setDecorationOnButton(JButton[] button) {
+        for (int i = 0 ; i < button.length ; i++) {
+            button[i].setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+            button[i].setBorder(new EmptyBorder(0,10,0,0));
         }
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for (JButton button : leftBottomButton) {
+            if (e.getSource() == button)
+                System.out.println(button.getText());
+        }
+
+        for (JButton jButton : rightTopButton) {
+            if (e.getSource() == jButton)
+                System.out.println(jButton.getText());
+        }
+    }
 }
