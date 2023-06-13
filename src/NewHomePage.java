@@ -68,7 +68,9 @@ public class NewHomePage implements ActionListener {
     }
 
     public void initLeftBottomPanel() {
-        leftBottomPanel = new JPanel(new GridLayout(8,1));
+        leftBottomPanel = new JPanel();
+        //leftBottomPanel.setLayout(new BoxLayout(leftBottomPanel, BoxLayout.Y_AXIS));
+        leftBottomPanel.setLayout(new GridLayout(8,1));
         innerLeftBottomPanel();
         leftBottomPanel.setPreferredSize(new Dimension(200, 560));
         leftBottomPanel.setBackground(Util.getColor("3D0C02"));
@@ -100,12 +102,14 @@ public class NewHomePage implements ActionListener {
 
     public void innerLeftBottomPanel() {
         innerLeftBottomPanel = new JPanel[8];
+        String[] colorString = {"A52A2A", "9F8170", "F5F5DC", "3D2B1F", "3D0C02", "3B3C36", "79443B", "FFBF00"};
         for (int i = 0 ; i < innerLeftBottomPanel.length ; i++) {
             innerLeftBottomPanel[i] = new JPanel(new GridLayout(1,1));
-            innerLeftBottomPanel[i].setBackground(Util.getColor("9966CC"));
+            innerLeftBottomPanel[i].setPreferredSize(new Dimension(180, 60));
+            innerLeftBottomPanel[i].setBackground(Util.getColor(colorString[i]));
             leftBottomPanel.add(innerLeftBottomPanel[i]);
         }
-        initLeftBottomPanelComponents();
+        //initLeftBottomPanelComponents();
     }
 
     public void innerRightTopPanel() {
@@ -160,6 +164,10 @@ public class NewHomePage implements ActionListener {
     }
 
     public void initLeftBottomPanelComponents() {
+        initLeftBottomButtons();
+    }
+
+    public void initLeftBottomButtons() {
         leftBottomButton = new JButton[8];
         String[] buttonString = {"Purchase", "Sales", "Customer", "Invoice", "Demand", "Stock", "Report", "Log Out"};
         for (int i = 0 ; i < leftBottomButton.length ; i++) {
