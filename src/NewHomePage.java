@@ -73,12 +73,14 @@ public class NewHomePage implements ActionListener {
         leftBottomPanel.setLayout(new GridLayout(8,1));
         innerLeftBottomPanel();
         leftBottomPanel.setPreferredSize(new Dimension(200, 560));
-        leftBottomPanel.setBackground(Util.getColor("3D0C02"));
+        leftBottomPanel.setBackground(Color.BLUE);
         leftPanel.add(leftBottomPanel);
     }
 
     public void initRightTopPanel() {
-        rightTopPanel = new JPanel(new GridLayout(1,4));
+        rightTopPanel = new JPanel();
+        //rightTopPanel.setLayout(new BoxLayout(rightTopPanel, BoxLayout.X_AXIS));
+        rightTopPanel.setLayout(new GridLayout(1,4));
         innerRightTopPanel();
         rightTopPanel.setPreferredSize(new Dimension(800, 70));
         rightTopPanel.setBackground(Util.getColor("C51E3A"));
@@ -105,18 +107,18 @@ public class NewHomePage implements ActionListener {
         String[] colorString = {"A52A2A", "9F8170", "F5F5DC", "3D2B1F", "3D0C02", "3B3C36", "79443B", "FFBF00"};
         for (int i = 0 ; i < innerLeftBottomPanel.length ; i++) {
             innerLeftBottomPanel[i] = new JPanel(new GridLayout(1,1));
-            innerLeftBottomPanel[i].setPreferredSize(new Dimension(180, 60));
             innerLeftBottomPanel[i].setBackground(Util.getColor(colorString[i]));
             leftBottomPanel.add(innerLeftBottomPanel[i]);
         }
-        //initLeftBottomPanelComponents();
+        initLeftBottomPanelComponents();
     }
 
     public void innerRightTopPanel() {
         innerRightTopPanel = new JPanel[4];
+        String[] colorString = {"AB274F", "7C0902", "FE6F5E", "BF4F51"};
         for (int i = 0 ; i < innerRightTopPanel.length ; i++) {
             innerRightTopPanel[i] = new JPanel(new GridLayout(1,1));
-            innerRightTopPanel[i].setBackground(Util.getColor("9966CC"));
+            innerRightTopPanel[i].setBackground(Util.getColor(colorString[i]));
             rightTopPanel.add(innerRightTopPanel[i]);
         }
         initRightTopPanelComponents();
@@ -192,7 +194,8 @@ public class NewHomePage implements ActionListener {
     public void setDecorationOnButton(JButton[] button) {
         for (int i = 0 ; i < button.length ; i++) {
             button[i].setFont(new Font("Comic Sans MS", Font.BOLD, 15));
-            button[i].setBorder(new EmptyBorder(0,10,0,0));
+            button[i].setBorder(new EmptyBorder(0,0,0,0));
+            button[i].setPreferredSize(new Dimension(160, 50));
         }
     }
 
