@@ -8,12 +8,23 @@ import java.time.LocalDate;
 public class NewHomePage implements ActionListener {
     static final int width = 1200, height = 630;
     static int panelIndex = 0;
+
+    public static int getPanelIndex() {
+        return panelIndex;
+    }
+
+    public static void setPanelIndex(int panelIndex) {
+        NewHomePage.panelIndex = panelIndex;
+    }
+
     String companyName = "Brahmasmi Inc.", userName = "Chiranjeev kashyap";
+    String darkPurple = "8A2BE2", lightBlue = "89CFF0";
     JFrame frame;
     JPanel panel, leftPanel, rightPanel;
-    JPanel leftTopPanel, target, rightTopPanel, rightCenterPanel, rightBottomPanel;
+    JPanel leftTopPanel, leftBottomPanel, rightTopPanel, rightCenterPanel, rightBottomPanel;
     JPanel[] innerRightTopPanel, innerRightBottomPanel;
     JButton[] leftBottomButton, rightTopButton;
+    JLabel panelLabel;
 
     public NewHomePage() {
         initMainFrame();
@@ -36,7 +47,6 @@ public class NewHomePage implements ActionListener {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         initLeftPanel();
         initRightPanel();
-        panel.setBackground(Util.getColor("3D0C02"));
         frame.add(panel);
     }
 
@@ -46,7 +56,6 @@ public class NewHomePage implements ActionListener {
         initLeftTopPanel();
         initLeftBottomPanel();
         leftPanel.setPreferredSize(new Dimension(200, height));
-        leftPanel.setBackground(Util.getColor("EFDECD"));
         panel.add(leftPanel);
     }
 
@@ -57,7 +66,6 @@ public class NewHomePage implements ActionListener {
         initRightCenterPanel();
         initRightBottomPanel();
         rightPanel.setPreferredSize(new Dimension(1000, height));
-        rightPanel.setBackground(Util.getColor("9F8170"));
         panel.add(rightPanel);
     }
 
@@ -65,33 +73,32 @@ public class NewHomePage implements ActionListener {
         leftTopPanel = new JPanel(new GridLayout(1,1));
         setLogoOnPanel(leftTopPanel, companyName);
         leftTopPanel.setPreferredSize(new Dimension(200,70));
-        leftTopPanel.setBackground(Util.getColor("8A2BE2"));
+        leftTopPanel.setBackground(Util.getColor(darkPurple));
         leftPanel.add(leftTopPanel);
     }
 
     public void initLeftBottomPanel() {
-        target = new JPanel();
-        target.setLayout(null);
+        leftBottomPanel = new JPanel();
+        leftBottomPanel.setLayout(null);
         initLeftBottomPanelComponents();
-        target.setPreferredSize(new Dimension(200, 560));
-        target.setBackground(Color.BLUE);
-        leftPanel.add(target);
+        leftBottomPanel.setPreferredSize(new Dimension(200, 560));
+        leftBottomPanel.setBackground(Util.getColor(darkPurple));
+        leftPanel.add(leftBottomPanel);
     }
 
     public void initRightTopPanel() {
         rightTopPanel = new JPanel();
-        //rightTopPanel.setLayout(new BoxLayout(rightTopPanel, BoxLayout.X_AXIS));
-        rightTopPanel.setLayout(new GridLayout(1,4));
-        innerRightTopPanel();
+        rightTopPanel.setLayout(null);
+        initRightTopPanelComponents();
         rightTopPanel.setPreferredSize(new Dimension(800, 70));
-        rightTopPanel.setBackground(Util.getColor("C51E3A"));
+        rightTopPanel.setBackground(Util.getColor(darkPurple));
         rightPanel.add(rightTopPanel);
     }
     
     public void initRightCenterPanel() {
         rightCenterPanel = new JPanel(new GridLayout(1,1));
         rightCenterPanel.setPreferredSize(new Dimension(800, 490));
-        rightCenterPanel.setBackground(Util.getColor("F2C1D1"));
+        rightCenterPanel.setBackground(Util.getColor(lightBlue));
         rightPanel.add(rightCenterPanel);
     }
 
@@ -99,26 +106,15 @@ public class NewHomePage implements ActionListener {
         rightBottomPanel = new JPanel(new GridLayout(1,1));
         innerRightBottomPanel();
         rightBottomPanel.setPreferredSize(new Dimension(800, 70));
-        rightBottomPanel.setBackground(Util.getColor("9400D3"));
+        rightBottomPanel.setBackground(Util.getColor(darkPurple));
         rightPanel.add(rightBottomPanel);
-    }
-
-    public void innerRightTopPanel() {
-        innerRightTopPanel = new JPanel[4];
-        String[] colorString = {"AB274F", "7C0902", "FE6F5E", "BF4F51"};
-        for (int i = 0 ; i < innerRightTopPanel.length ; i++) {
-            innerRightTopPanel[i] = new JPanel(new GridLayout(1,1));
-            innerRightTopPanel[i].setBackground(Util.getColor(colorString[i]));
-            rightTopPanel.add(innerRightTopPanel[i]);
-        }
-        initRightTopPanelComponents();
     }
 
     public void innerRightBottomPanel() {
         innerRightBottomPanel = new JPanel[4];
         for (int i = 0 ; i < innerRightBottomPanel.length ; i++) {
             innerRightBottomPanel[i] = new JPanel(new GridLayout(1,1));
-            innerRightBottomPanel[i].setBackground(Util.getColor("9966CC"));
+            innerRightBottomPanel[i].setBackground(Util.getColor(darkPurple));
             rightBottomPanel.add(innerRightBottomPanel[i]);
         }
         initRightBottomPanelComponents();
@@ -130,7 +126,7 @@ public class NewHomePage implements ActionListener {
         logoText.setForeground(Color.BLACK);
         logoText.setVerticalAlignment(JLabel.CENTER);
         logoText.setHorizontalAlignment(JLabel.CENTER);
-        //logoText.setBorder(new EmptyBorder(0,10,0,0));
+        Util.setPadding(logoText, 0, 0, 0, 0);
         panel.add(logoText);
     }
 
@@ -167,7 +163,7 @@ public class NewHomePage implements ActionListener {
             leftBottomButton[i] = new JButton(buttonString[i]);
             leftBottomButton[i].setBounds(10,y,180,55);
             leftBottomButton[i].addActionListener(this);
-            target.add(leftBottomButton[i]);
+            leftBottomPanel.add(leftBottomButton[i]);
             y += 69;
         }
         setDecorationOnButton(leftBottomButton);
@@ -175,12 +171,25 @@ public class NewHomePage implements ActionListener {
 
     public void initRightTopPanelComponents() {
         rightTopButton = new JButton[4];
+        panelLabel = new JLabel(leftBottomButton[getPanelIndex()].getText() + " Panel");
         String[] buttonString = {"Add", "Update", "Delete", "View"};
+        int x = 10;
         for (int i = 0 ; i < rightTopButton.length ; i++) {
             rightTopButton[i] = new JButton(buttonString[i]);
             rightTopButton[i].addActionListener(this);
-            innerRightTopPanel[i].add(rightTopButton[i]);
+            rightTopButton[i].setBounds(x,10,160,50);
+            rightTopPanel.add(rightTopButton[i]);
+            x += 200;
+            x += i == 1 ? 210 : 0;
         }
+        panelLabel.setBounds(380, 10, 230, 50);
+        panelLabel.setBackground(Util.getColor(darkPurple));
+        panelLabel.setForeground(Color.WHITE);
+        panelLabel.setOpaque(true);
+        panelLabel.setVerticalAlignment(JLabel.CENTER);
+        panelLabel.setHorizontalAlignment(JLabel.CENTER);
+        panelLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+        rightTopPanel.add(panelLabel);
         setDecorationOnButton(rightTopButton);
     }
 
@@ -188,12 +197,11 @@ public class NewHomePage implements ActionListener {
         for (JButton jButton : button) {
             jButton.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
             jButton.setBorder(new EmptyBorder(0, 0, 0, 0));
-            jButton.setPreferredSize(new Dimension(160, 50));
         }
     }
 
     public void purchasePanel() {
-        System.out.println("Purchase Panel Method");
+
     }
 
     public void salePanel() {
@@ -279,7 +287,7 @@ public class NewHomePage implements ActionListener {
         for (int i = 0; i < leftBottomButton.length; i++) {
             if (e.getSource() == leftBottomButton[i]) {
                 panelIndex = i;
-                System.out.println(leftBottomButton[i].getText() + " Index: " + panelIndex);
+                panelLabel.setText(leftBottomButton[i].getText() + " Panel");
                 selectPanelByIndex(panelIndex);
             }
         }

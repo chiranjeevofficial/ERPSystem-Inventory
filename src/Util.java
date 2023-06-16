@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import static java.awt.Toolkit.getDefaultToolkit;
 
@@ -22,5 +23,8 @@ public class Util {
         }
     }
 
+    public static void setPadding(JLabel label, int top, int left, int bottom, int right) {
+        label.setBorder(new EmptyBorder(top, left, bottom, right));
+    }
 
 }
