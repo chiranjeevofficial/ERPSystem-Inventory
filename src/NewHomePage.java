@@ -201,7 +201,7 @@ public class NewHomePage implements ActionListener {
     }
 
     public void purchasePanel() {
-
+        rightCenterPanel.setBackground(Util.getColor("1B4D3E"));
     }
 
     public void salePanel() {
@@ -232,7 +232,7 @@ public class NewHomePage implements ActionListener {
 
     }
 
-    public void selectPanelByIndex(int panelIndex) {
+    public void selectPanelMethodByIndex(int panelIndex) {
         switch (panelIndex) {
             case 0 -> {
                 rightCenterPanel.removeAll();
@@ -276,7 +276,7 @@ public class NewHomePage implements ActionListener {
             }
             default -> {
                 rightCenterPanel.removeAll();
-                rightCenterPanel.add(new JLabel("Un Recognised panel"));
+                panelLabel.setText("Un Recognised panel");
                 frame.revalidate();
             }
         }
@@ -286,15 +286,15 @@ public class NewHomePage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < leftBottomButton.length; i++) {
             if (e.getSource() == leftBottomButton[i]) {
-                panelIndex = i;
+                setPanelIndex(i);
                 panelLabel.setText(leftBottomButton[i].getText() + " Panel");
-                selectPanelByIndex(panelIndex);
+                selectPanelMethodByIndex(panelIndex);
             }
         }
 
         for (JButton jButton : rightTopButton) {
             if (e.getSource() == jButton)
-                System.out.println(jButton.getText() + " Selected Panel Index: " + panelIndex);
+                panelLabel.setText(leftBottomButton[panelIndex].getText() + " " + jButton.getText());
         }
     }
 }

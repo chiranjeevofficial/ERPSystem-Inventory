@@ -91,11 +91,13 @@ public class LoginPage {
         mainPanel.add(inputJPanel);
     }*/
 
-    /*public void initNavigatePanel() {
-        navigateJPanel = new JPanel();
-        navigateJPanel.setLayout(null);
-        navigateJPanel.setPreferredSize(new Dimension(width - 16, 150));
-        navigateJPanel.setBackground(Color.RED);
-        mainPanel.add(navigateJPanel);
-    }*/
+    /**
+     * public void initNavigatePanel() {
+     * navigateJPanel = new JPanel();
+     * navigateJPanel.setLayout(null);
+     * navigateJPanel.setPreferredSize(new Dimension(width - 16, 150));
+     * navigateJPanel.setBackground(Color.RED);
+     * mainPanel.add(navigateJPanel);
+     *}
+     */
 }
